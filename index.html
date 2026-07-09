@@ -1,4 +1,4 @@
-<!--README.md-->
+<!--targetAction = ()-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -34,17 +34,18 @@
     </div>
 
     <script>
-        const targetFile = '/'; 
+        // Die gewünschte Aktion im Erfolgsfall als Funktion definiert
+        const targetAction = () => window.location.replace("README.md"); 
         const fallbackUrl = 'https://gaestehaus22.at';
 
-        // 1. Prüfe, ob die README.md auf GitHub verfügbar ist
-        fetch(targetFile, { method: 'GET' })
+        // Der Fetch prüft die Existenz der Datei anhand ihres Namens
+        fetch('README.md', { method: 'GET' })
             .then(response => {
                 if (response.ok) {
-                    // ECHTES STANDALONE: Leite den Browser direkt zur README.md-Datei weiter
-                    window.location.replace(targetFile);
+                    // Führt die oben definierte Aktion aus
+                    targetAction();
                 } else {
-                    // Falls nicht verfügbar (z.B. 404), nutze das Website-Fallback
+                    // Falls die Datei nicht verfügbar ist (z.B. 404)
                     window.location.replace(fallbackUrl);
                 }
             })
