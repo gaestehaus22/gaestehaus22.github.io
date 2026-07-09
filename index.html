@@ -1,3 +1,4 @@
+<!--gaestehaus22.github.io-->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -33,52 +34,48 @@
     </div>
 
     <div id="readme-fallback" class="container hidden">
-        <h1>ℹ️ Dokumentation (Fallback)</h1>
-        <p>Die Hauptanwendung konnte nicht geladen werden. Nachfolgend finden Sie die System-Dokumentation:</p>
+        <h1>ℹ️ Dokumentation</h1>
+        <p>Die Hauptanwendung konnte nicht geladen werden. Nachfolgend finden Sie die Dokumentation von GitHub:</p>
         <hr>
         <pre id="readme-content">Lade Dokumentation...</pre>
     </div>
 
     <script>
-        // Nutze relative Pfade für die Prüfung
-        const targetFile = 'README.md'; 
-        const fallbackFile = 'https://gaestehaus22.at';
+        // Definition der URLs laut Vorgabe
+        const targetFile = 'https://gaestehaus22.github.io/README.md'; 
+        const fallbackUrl = 'https://gaestehaus22.at';
 
+        // Versuche zuerst die README.md von GitHub zu laden
         fetch(targetFile, { method: 'GET' })
             .then(response => {
                 if (response.ok) {
-                    // Ermittelt den aktuellen Pfad (z.B. /Etiketten-Druckstudio oder /Etiketten-Druckstudio/)
-                    const currentPath = window.location.pathname;
-                    
-                    // Verhindert den "Trailing Slash"-Fehler auf GitHub Pages:
-                    // Wenn der Pfad auf "/" endet, hängen wir einfach "app/" an.
-                    // Wenn das "/" fehlt, fügen wir es vor "app/" ein, damit der Projektname erhalten bleibt.
-                    const newPath = currentPath.endsWith('/') ? currentPath + 'app/' : currentPath + '/app/';
-                    
-                    window.location.replace(newPath);
+                    // Wenn die README geladen werden konnte, wird sie im Container angezeigt
+                    return response.text();
                 } else {
+                    // Wenn die Datei nicht existiert oder ein Fehler auftritt, gehe zum Fallback
                     loadFallback();
+                    return null;
+                }
+            })
+            .then(text => {
+                if (text !== null) {
+                    // Blende den Loader aus und zeige den Text an
+                    document.getElementById('loader').classList.add('hidden');
+                    document.getElementById('readme-fallback').classList.remove('hidden');
+                    document.getElementById('readme-content').textContent = text;
                 }
             })
             .catch(() => {
+                // Bei Netzwerkfehlern (z.B. CORS-Blockade) greift das Fallback
                 loadFallback();
             });
 
         function loadFallback() {
+            // Blende den Loader aus
             document.getElementById('loader').classList.add('hidden');
-            document.getElementById('readme-fallback').classList.remove('hidden');
             
-            fetch(fallbackFile)
-                .then(res => {
-                    if (res.ok) return res.text();
-                    return "Die README.md Datei konnte ebenfalls nicht im Root-Verzeichnis gefunden werden.";
-                })
-                .then(text => {
-                    document.getElementById('readme-content').textContent = text;
-                })
-                .catch(() => {
-                    document.getElementById('readme-content').textContent = "Fehler beim Laden der README.md.";
-                });
+            // Da die Fallback-Adresse eine Website ist, leiten wir den Nutzer direkt dorthin weiter
+            window.location.replace(fallbackUrl);
         }
     </script>
 </body>
