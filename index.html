@@ -14,69 +14,44 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            line-height: 1.6;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background-color: #f9f9f9;
             color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .container { max-width: 800px; margin: 40px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .loader { text-align: center; margin-top: 10vh; }
-        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; }
-        .hidden { display: none; }
+        .loader { text-align: center; }
     </style>
 </head>
 <body>
 
     <div id="loader" class="loader">
-        <h2>Prüfe Systemkomponenten...</h2>
+        <h2>System wird geladen...</h2>
         <p>Bitte warten, Sie werden gleich weitergeleitet.</p>
     </div>
 
-    <div id="readme-fallback" class="container hidden">
-        <h1>ℹ️ Dokumentation</h1>
-        <p>Die Hauptanwendung konnte nicht geladen werden. Nachfolgend finden Sie die Dokumentation von GitHub:</p>
-        <hr>
-        <pre id="readme-content">Lade Dokumentation...</pre>
-    </div>
-
     <script>
-        // Definition der URLs laut Vorgabe
         const targetFile = 'https://gaestehaus22.github.io/README.md'; 
         const fallbackUrl = 'https://gaestehaus22.at';
 
-        // Versuche zuerst die README.md von GitHub zu laden
+        // 1. Prüfe, ob die README.md auf GitHub verfügbar ist
         fetch(targetFile, { method: 'GET' })
             .then(response => {
                 if (response.ok) {
-                    // Wenn die README geladen werden konnte, wird sie im Container angezeigt
-                    return response.text();
+                    // ECHTES STANDALONE: Leite den Browser direkt zur README.md-Datei weiter
+                    window.location.replace(targetFile);
                 } else {
-                    // Wenn die Datei nicht existiert oder ein Fehler auftritt, gehe zum Fallback
-                    loadFallback();
-                    return null;
-                }
-            })
-            .then(text => {
-                if (text !== null) {
-                    // Blende den Loader aus und zeige den Text an
-                    document.getElementById('loader').classList.add('hidden');
-                    document.getElementById('readme-fallback').classList.remove('hidden');
-                    document.getElementById('readme-content').textContent = text;
+                    // Falls nicht verfügbar (z.B. 404), nutze das Website-Fallback
+                    window.location.replace(fallbackUrl);
                 }
             })
             .catch(() => {
-                // Bei Netzwerkfehlern (z.B. CORS-Blockade) greift das Fallback
-                loadFallback();
+                // Bei Netzwerkfehlern oder CORS-Blockaden ebenfalls zum Fallback wechseln
+                window.location.replace(fallbackUrl);
             });
-
-        function loadFallback() {
-            // Blende den Loader aus
-            document.getElementById('loader').classList.add('hidden');
-            
-            // Da die Fallback-Adresse eine Website ist, leiten wir den Nutzer direkt dorthin weiter
-            window.location.replace(fallbackUrl);
-        }
     </script>
 </body>
 </html>
