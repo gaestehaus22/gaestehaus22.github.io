@@ -1,24 +1,28 @@
-# Gästehaus 22 — Official Website & PWA
+# Gästehaus22
 
-Welcome to the official repository for **Gästehaus 22** (Asten, Upper Austria). This repository contains the frontend platform and Progressive Web App (PWA) tailored for modern, lightweight, and fast accommodation management.
+[![Website](https://img.shields.io/badge/Website-www.gaestehaus22.at-blue)](https://www.gaestehaus22.at)
 
----
-
-## 🌍 Language Switch / Sprachauswahl
-* [🇬🇧 English Documentation](#-english)
-* [🇩🇪 Deutsche Dokumentation](#-deutsch)
+This is the official repository for the website of **Gästehaus22**, a cozy guesthouse located in the heart of Austria. The project focuses on providing a clean, responsive, and welcoming online presence to showcase the accommodations and facilitate easy booking for guests.
 
 ---
 
 ## 🇬🇧 English
 
-### 📝 Overview
-This repository hosts the source code for [gaestehaus22.at](https://gaestehaus22.at). The project is built as a highly optimized, mobile-first **Progressive Web App (PWA)** explicitly designed for worker and fitter accommodations (*Monteurzimmer*). 
+### Description
+This repository contains the source code and assets for the Gästehaus22 website. The site is designed to reflect the charm and hospitality of the guesthouse, featuring:
 
-### ✨ Key Features
-* 📱 **Progressive Web App (PWA):** Fully installable on iOS, Android, and Desktop environments with standalone window viewing.
-* 📶 **Offline Capabilities:** Leverages modern Service Workers (`sw.js`) and cache storage strategies to remain functional during weak connectivity.
-* 📄 **Integrated Billing Engine:** Features a lightweight client-side utility for rapid local invoice and document assembly.
-* 🚀 **Serverless Delivery:** Hosted entirely on GitHub Pages via static assets, eliminating heavy runtime server footprints and optimizing load times (Starlink & high-latency friendly).
+- **Homepage:** A welcoming landing page with an overview of the property.
+- **Rooms & Suites:** Detailed descriptions and images of the available rooms.
+- **Gallery:** High-quality images showcasing the interior and surrounding landscape.
+- **Contact & Booking:** Integrated contact forms and clear calls-to-action for reservations.
 
-### 📂 Directory Architecture
+### Tech Stack
+- **Frontend:** HTML5, CSS3, JavaScript
+- **Hosting:** Netlify / Vercel / Custom Server (Adjust as needed)
+
+### Getting Started
+To run this project locally, follow these steps:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/[your-username]/gaestehaus22.git
